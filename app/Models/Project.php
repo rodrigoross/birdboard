@@ -11,8 +11,20 @@ class Project extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'owner_id' => 'integer'
+    ];
+
     public function path()
     {
         return "/projects/{$this->id}";
+    }
+
+    /**
+     * Pega o usuario proprietário do projeto
+     */
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -8,23 +8,13 @@ use Illuminate\Http\Request;
 class ProjectsController extends Controller
 {
     /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth')->only(['store']);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = auth()->user()->projects;
 
         return view('projects.index', [
             'projects' => $projects
@@ -67,6 +57,10 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
+        if (auth()->user()->isNot($project->owner)) {
+            abort(403);
+        }
+
         return view('projects.show', ['project' => $project]);
     }
 
