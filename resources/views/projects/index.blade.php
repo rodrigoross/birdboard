@@ -8,11 +8,13 @@
 <body>
     <h1>Birdboard</h1>
     <ul>
-        @foreach ($projects as $project)
+        @forelse  ($projects as $project)
             <li>
-                {{ $project->title }}
+                <a href="{{ $project->path() }}">{{ $project->title }}</a>
             </li>
-        @endforeach
+        @empty
+            <li>Nenhun projeto criado!</li>
+        @endforelse
     </ul>
 </body>
 
