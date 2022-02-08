@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Birdboard') }}
+        </h2>
+    </x-slot>
 
-<head>
-    <title></title>
-</head>
+    <div class="flex justify-between align-middle mb-5">
+        <h1 class="font-bold text-sm text-gray-500 uppercase self-center">Meus projetos</h1>
 
-<body>
-    <h1>Birdboard</h1>
-    <ul>
+        <x-button class="">
+            <a href="{{ route('projects.create') }}">Novo projeto</a>
+        </x-button>
+    </div>
+    <ul class="list-inside">
         @forelse  ($projects as $project)
-            <li>
+            <li
+                class="my-1 p-2 bg-white rounded shadow shadow-sm hover:bg-gray-50 hover:text-indigo-700 hover:shadow-md">
                 <a href="{{ $project->path() }}">{{ $project->title }}</a>
             </li>
         @empty
-            <li>Nenhun projeto criado!</li>
+            <li>{{ __('Nenhun projeto criado!') }}</li>
         @endforelse
     </ul>
-</body>
-
-</html>
+</x-app-layout>

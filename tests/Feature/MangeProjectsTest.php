@@ -8,13 +8,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ProjectsTest extends TestCase
+class MangeProjectsTest extends TestCase
 {
     use WithFaker, RefreshDatabase;
 
     /** @test */
     public function guests_cannot_create_projects()
     {
+        $this->get('/projects/create')->assertRedirect('login');
+
         $attributes = Project::factory()->raw();
 
         $this->post('/projects', $attributes)->assertRedirect('login');
@@ -41,6 +43,8 @@ class ProjectsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->actingAs(User::factory()->create());
+
+        $this->get('/projects/create')->assertStatus(200);
 
         $attributes = [
             'title' => $this->faker->sentence(2),
