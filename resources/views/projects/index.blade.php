@@ -12,13 +12,13 @@
 
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
         @forelse ($projects as $project)
-            <x-card-item>
+            <x-card-item width="style: 200px;">
                 <x-slot name="title">
                     <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ Str::limit($project->description, 180, '...') }}
+                    {{ Str::limit($project->description, 250, '...') }}
                 </x-slot>
             </x-card-item>
         @empty
