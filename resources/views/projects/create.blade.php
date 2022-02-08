@@ -5,10 +5,10 @@
         </h2>
     </x-slot>
 
+    <h1 class="font-bold text-sm text-gray-500 uppercase">Criar projeto</h1>
     <form action="{{ route('projects.store') }}" method="POST" class="container mt-5">
-        <h1 class="font-bold text-sm text-gray-500 px-8 uppercase">Criar projeto</h1>
         @csrf
-        <div class="container my-3 px-8">
+        <div class="container">
             <label for="title" class="block text-sm font-medium text-gray-700">Titulo</label>
             <div class="mt-1 flex rounded-md shadow-sm">
                 <input type="text"
@@ -16,7 +16,7 @@
                     name="title" placeholder="Titulo">
             </div>
         </div>
-        <div class="container my-3 px-8">
+        <div class="container my-3">
             <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
             <div class="mt-1 flex rounded-md shadow-sm">
                 <textarea
@@ -24,7 +24,7 @@
                     name="description" placeholder="Loren ipsum..."></textarea>
             </div>
         </div>
-        <div class="px-4 py-3 text-right sm:px-6">
+        <div class="text-right">
             <x-button>
                 {{ __('Salvar projeto') }}
             </x-button>

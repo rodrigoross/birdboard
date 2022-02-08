@@ -12,7 +12,24 @@
             <a href="{{ route('projects.create') }}">Novo projeto</a>
         </x-button>
     </div>
-    <ul class="list-inside">
+
+    <div class="grid grid-cols-3 gap-3">
+        @forelse ($projects as $project)
+            <div class="bg-white rounded shadow shadow-sm p-5" style="height: 200px">
+                <h3 class="font-normal text-xl py-4">
+                    {{ $project->title }}
+                </h3>
+
+                <div class="text-gray-500">
+                    {{ Str::limit($project->description, 180, '...') }}
+                </div>
+            </div>
+        @empty
+            <div>{{ __('Você não tem nenhum projeto ainda!') }}</div>
+        @endforelse
+    </div>
+
+    {{-- <ul class="list-inside">
         @forelse  ($projects as $project)
             <li
                 class="my-1 p-2 bg-white rounded shadow shadow-sm hover:bg-gray-50 hover:text-indigo-700 hover:shadow-md">
@@ -21,5 +38,5 @@
         @empty
             <li>{{ __('Nenhun projeto criado!') }}</li>
         @endforelse
-    </ul>
+    </ul> --}}
 </x-app-layout>
