@@ -42,7 +42,7 @@ class MangeProjectsTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->actingAs(User::factory()->create());
+        $this->signIn();
 
         $this->get('/projects/create')->assertStatus(200);
 
@@ -61,7 +61,7 @@ class MangeProjectsTest extends TestCase
     /** @test */
     public function a_project_require_a_title()
     {
-        $this->actingAs(User::factory()->create());
+        $this->signIn();
 
         $attributes = Project::factory()->raw(['title' => '']);
 
@@ -71,7 +71,7 @@ class MangeProjectsTest extends TestCase
     /** @test */
     public function a_project_require_a_description()
     {
-        $this->actingAs(User::factory()->create());
+        $this->signIn();
 
         $attributes = Project::factory()->raw(['description' => '']);
 
@@ -81,7 +81,7 @@ class MangeProjectsTest extends TestCase
     /** @test */
     public function a_user_can_view_their_project()
     {
-        $this->be(User::factory()->create());
+        $this->signIn();
 
         $this->withoutExceptionHandling();
 
@@ -95,7 +95,7 @@ class MangeProjectsTest extends TestCase
     /** @test */
     public function an_authenticated_user_cannot_view_the_project_of_others()
     {
-        $this->be(User::factory()->create());
+        $this->signIn();
 
         $project = Project::factory()->create();
 
