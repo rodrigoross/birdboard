@@ -12,16 +12,15 @@
 
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
         @forelse ($projects as $project)
-            <div class="bg-white rounded-lg shadow shadow-sm p-5" style="height: 200px">
-                <h3
-                    class="-ml-5 font-normal text-xl py-4 pl-5 mb-3 border-solid border-l-4 border-l-sky-500 hover:text-sky-500 transition ease-in-out">
+            <x-card-item>
+                <x-slot name="title">
                     <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
-                </h3>
+                </x-slot>
 
-                <div class="text-gray-500 md:truncate">
+                <x-slot name="description">
                     {{ Str::limit($project->description, 180, '...') }}
-                </div>
-            </div>
+                </x-slot>
+            </x-card-item>
         @empty
             <div>{{ __('Você não tem nenhum projeto ainda!') }}</div>
         @endforelse
