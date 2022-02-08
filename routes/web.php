@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\ProjectTasksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('dashboard');
 
     Route::resource('projects', ProjectsController::class);
+
+    Route::post('/projects/{project}/tasks', [ProjectTasksController::class, 'store']);
 });
 
 

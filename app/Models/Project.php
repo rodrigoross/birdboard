@@ -15,16 +15,44 @@ class Project extends Model
         'owner_id' => 'integer'
     ];
 
+    /**
+     * Retorna a url base do projeto
+     *
+     * @return string
+     */
     public function path()
     {
         return "/projects/{$this->id}";
     }
 
     /**
+     * Adiciona uma nova task no projeto
+     *
+     * @return void
+     */
+    public function addTask($body)
+    {
+        return $this->tasks()->create(compact('body'));
+    }
+
+
+    /**
      * Pega o usuario proprietário do projeto
+     *
+     * @return User
      */
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Pega o usuario proprietário do projeto
+     *
+     * @return User
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

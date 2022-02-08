@@ -18,18 +18,11 @@
                 <div class="mb-3">
                     <h2 class="text-lg text-gray-400 font-normal uppercase">{{ __('Tarefas') }}</h2>
                     {{-- Tarefas --}}
-                    <x-card class="mb-3">
-                        Lorem ipsum
-                    </x-card>
-                    <x-card class="mb-3">
-                        Lorem ipsum
-                    </x-card>
-                    <x-card class="mb-3">
-                        Lorem ipsum
-                    </x-card>
-                    <x-card>
-                        Lorem ipsum
-                    </x-card>
+                    @foreach ($project->tasks as $task)
+                        <x-card class="mb-3">
+                            {{ $task->body }}
+                        </x-card>
+                    @endforeach
 
                 </div>
 
