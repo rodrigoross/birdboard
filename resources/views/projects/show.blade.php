@@ -50,10 +50,17 @@
                     <h2 class="text-lg text-gray-400 font-normal uppercase">{{ __('Notas') }}</h2>
                     {{-- Notas --}}
 
-                    <textarea class="border-none rounded-lg shadow shadow-sm p-5 w-full" style="min-height: 200px;"
-                        name="notes" id="notes" cols="30" rows="1">Lorem ipsum</textarea>
+                    <form method="POST" action="{{ route('projects.update', $project->id) }}">
+                        @csrf
+                        @method('PATCH')
+                        <textarea class="border-none rounded-lg shadow shadow-sm p-5 w-full" style="min-height: 200px;"
+                            name="notes" id="notes"
+                            placeholder="Alguma coisa para tomar nota?">{{ $project->notes }}</textarea>
 
-
+                        <x-button>
+                            {{ __('Salvar') }}
+                        </x-button>
+                    </form>
                 </div>
             </div>
             <div class="lg:w-1/4 grow-1">
