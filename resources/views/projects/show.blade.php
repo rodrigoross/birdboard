@@ -23,7 +23,14 @@
                             {{ $task->body }}
                         </x-card>
                     @endforeach
-
+                    <x-card class="mb-3">
+                        <form action="{{ route('tasks.store', $project->id) }}" method="POST" class="p-0">
+                            @csrf
+                            <input type="text" name="body" id="task"
+                                class="w-full p-0 border-transparent focus:border-transparent focus:ring-0"
+                                placeholder="{{ __('Adicionar uma nova tarefa...') }}">
+                        </form>
+                    </x-card>
                 </div>
 
                 <div class="mb-3">

@@ -12,7 +12,7 @@
 
     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
         @forelse ($projects as $project)
-            <x-card-item width="style: 200px;">
+            <x-card-item>
                 <x-slot name="title">
                     <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
                 </x-slot>
