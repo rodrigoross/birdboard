@@ -84,7 +84,9 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project->update($request->only('notes'));
+
+        return redirect($project->path());
     }
 
     /**
