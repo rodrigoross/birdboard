@@ -12,6 +12,14 @@ class Task extends Model
     protected $guarded = [];
 
     /**
+     * Lista de instancias que devem ser tocadas/atualizadas quando uma tarefa
+     * for alterada
+     */
+    protected $touches = [
+        'project'
+    ];
+
+    /**
      * Helper path function
      */
     public function path()
