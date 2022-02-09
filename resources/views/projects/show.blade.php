@@ -19,8 +19,21 @@
                     <h2 class="text-lg text-gray-400 font-normal uppercase">{{ __('Tarefas') }}</h2>
                     {{-- Tarefas --}}
                     @foreach ($project->tasks as $task)
+                        {{-- route('tasks.update', ['project' => $project->id, 'task' => $task->id]) --}}
                         <x-card class="mb-3">
-                            {{ $task->body }}
+                            <form action="{{ $task->path() }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <div class="flex justify-between items-center w-full">
+
+                                    <input type="text" name="body" id="{{ "task-{$task->id}" }}"
+                                        class="w-full p-0 border-transparent focus:border-transparent focus:ring-0 {{ $task->completed ? 'text-gray-500' : '' }}"
+                                        value="{{ $task->body }}">
+
+                                    <input type="checkbox" name="completed" id="{{ "completed-{$task->id}" }}"
+                                        onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
+                                </div>
+                            </form>
                         </x-card>
                     @endforeach
                     <x-card class="mb-3">

@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->text('body');
+            $table->boolean('completed')->default(false);
             $table->foreignIdFor(Project::class)->onDelete('cascade');
             $table->timestamps();
         });
