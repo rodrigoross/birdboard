@@ -38,6 +38,14 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    public function guest_may_not_edit_a_project()
+    {
+        $project = Project::factory()->create();
+
+        $this->get($project->path() . "/edit")->assertRedirect('login');
+    }
+
+    /** @test */
     public function a_user_can_create_a_project()
     {
         $this->signIn();
@@ -67,11 +75,17 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_update_a_project()
     {
+        $this->withoutExceptionHandling();
+
         $project = Project::factory()
             ->ownedBy($this->signIn())
             ->create();
 
+        $this->get($project->path() . "/edit")->assertOk();
+
         $this->patch($project->path(), $attributes = [
+            'title' => 'Changed',
+            'description' => 'Changed',
             'notes' => 'Changed'
         ])->assertRedirect($project->path());
 
