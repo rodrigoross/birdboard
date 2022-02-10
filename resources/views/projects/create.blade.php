@@ -1,12 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Birdboard') }}
-        </h2>
+        <h1 class="font-bold text-sm text-gray-500 uppercase">{{ __('Criar projeto') }}</h1>
     </x-slot>
 
-    <h1 class="font-bold text-sm text-gray-500 uppercase">Criar projeto</h1>
-    <form action="{{ route('projects.store') }}" method="POST" class="container mt-5">
+    <div class="mx-auto px-6 py-3 bg-white rounded shadow shadow-sm">
+        <form action="{{ route('projects.store') }}" method="POST" class="container mt-5">
+            @include('projects.partials.form',[
+            'project' => new App\Models\Project,
+            'buttonText' => __('Cria projeto')
+            ])
+        </form>
+    </div>
+    {{-- <form action="{{ route('projects.store') }}" method="POST" class="container mt-5">
         @csrf
         <div class="container">
             <label for="title" class="block text-sm font-medium text-gray-700">Titulo</label>
@@ -29,5 +34,5 @@
                 {{ __('Salvar projeto') }}
             </x-button>
         </div>
-    </form>
+    </form> --}}
 </x-app-layout>
