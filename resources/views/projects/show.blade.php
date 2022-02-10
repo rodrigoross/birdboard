@@ -7,7 +7,7 @@
             </p>
 
             <x-button class="shadow shadow-sm">
-                <a href="{{ route('projects.create') }}">{{ __('Novo projeto') }}</a>
+                <a href="{{ route('projects.edit', $project->id) }}">{{ __('Editar projeto') }}</a>
             </x-button>
         </div>
     </x-slot>

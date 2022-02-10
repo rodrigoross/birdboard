@@ -71,7 +71,9 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('projects.edit', [
+            'project' => $project
+        ]);
     }
 
     /**
@@ -85,7 +87,13 @@ class ProjectsController extends Controller
     {
         $this->authorize('update', $project);
 
-        $project->update($request->only('notes'));
+        $attributes = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'notes' => 'max:255'
+        ]);
+
+        $project->update($attributes);
 
         return redirect($project->path());
     }
