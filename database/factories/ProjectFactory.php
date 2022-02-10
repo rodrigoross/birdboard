@@ -15,10 +15,24 @@ class ProjectFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(2),
-            'description' => $this->faker->paragraph(),
+            'description' => $this->faker->sentence(15),
             'owner_id' => function () {
                 return \App\Models\User::factory()->create()->id;
             }
         ];
+    }
+
+    /**
+     * Indica qual usuario é o dono do projeto.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function ownedBy(\App\Models\User $signedUser)
+    {
+        return $this->state(function (array $attributes) use ($signedUser) {
+            return [
+                'owner_id' => $signedUser->id,
+            ];
+        });
     }
 }

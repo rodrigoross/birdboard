@@ -9,8 +9,18 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    /**
+     * Helper function que cria usuario ou seta usuario como usuário logado
+     *
+     * @param App\Models\User $user|null
+     * @return App\Models\User $user
+     */
     protected function signIn($user = null)
     {
-        $this->actingAs($user ?: User::factory()->create());
+        $user = $user ?: User::factory()->create();
+
+        $this->actingAs($user);
+
+        return $user;
     }
 }
