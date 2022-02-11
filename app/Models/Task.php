@@ -20,6 +20,14 @@ class Task extends Model
     ];
 
     /**
+     * Aplica cast dos seguintes atributos
+     *
+     */
+    protected $casts = [
+        'completed' => 'boolean'
+    ];
+
+    /**
      * @override boot() method do model
      *
      * Adiciona observavel para quando uma nova task é criada e executada.
@@ -31,13 +39,20 @@ class Task extends Model
         static::created(function ($task) {
             $task->project->recordActivity('created_task');
         });
-
-        static::updated(function ($task) {
-            if (!$task->completed) return;
-
-            $task->project->recordActivity('completed_task');
-        });
     }
+
+    /**
+     * Completa atividade
+     *
+     * @return void
+     */
+    public function complete()
+    {
+        $this->update(['completed' => true]);
+
+        $this->project->recordActivity('completed_task');
+    }
+
     /**
      * Helper path function
      */
