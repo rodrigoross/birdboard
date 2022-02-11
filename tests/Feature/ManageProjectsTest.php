@@ -75,19 +75,31 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_update_a_project()
     {
-        $this->withoutExceptionHandling();
+        $project = Project::factory()->create();
 
-        $project = Project::factory()
-            ->ownedBy($this->signIn())
-            ->create();
-
-        $this->get($project->path() . "/edit")->assertOk();
+        $this->actingAs($project->owner)
+            ->get($project->path() . "/edit")
+            ->assertOk();
 
         $this->patch($project->path(), $attributes = [
             'title' => 'Changed',
             'description' => 'Changed',
             'notes' => 'Changed'
         ])->assertRedirect($project->path());
+
+        $this->assertDatabaseHas('projects', $attributes);
+    }
+
+    /** @test */
+    public function a_user_can_update_a_project_general_notes()
+    {
+        $this->withoutExceptionHandling();
+
+        $project = Project::factory()->create();
+
+        $this->actingAs($project->owner)
+            ->patch($project->path(), $attributes = ['notes' => 'Changed'])
+            ->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', $attributes);
     }
