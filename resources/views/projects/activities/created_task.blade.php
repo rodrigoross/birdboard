@@ -1,1 +1,1 @@
-{{ __('Você criou uma nova tarefa') }}
+{{ __('Você criou "') . $activity->subject->body . '"' }}
