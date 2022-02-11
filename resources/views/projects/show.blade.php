@@ -53,10 +53,15 @@
                     <form method="POST" action="{{ route('projects.update', $project->id) }}">
                         @csrf
                         @method('PATCH')
-                        <textarea class="border-none rounded-lg shadow shadow-sm p-5 w-full" style="min-height: 200px;"
-                            name="notes" id="notes"
-                            placeholder="Alguma coisa para tomar nota?">{{ $project->notes }}</textarea>
+                        <div>
+                            <textarea class="border-none rounded-lg shadow shadow-sm p-5 w-full"
+                                style="min-height: 200px;" name="notes" id="notes"
+                                placeholder="Alguma coisa para tomar nota?">{{ $project->notes }}</textarea>
 
+                            @error('notes')
+                                <span class="text-red-400 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <x-button>
                             {{ __('Salvar') }}
                         </x-button>

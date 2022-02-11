@@ -4,7 +4,7 @@
     <label for="title" class="block text-sm font-medium text-gray-700">Titulo</label>
     <div class="mt-1 flex rounded-md shadow-sm">
         <input type="text"
-            class="{{ $errors->title ? 'border border-2 border-red-400' : 'focus:ring-indigo-500 focus:border-indigo-500' }} block w-full rounded sm:text-sm focus:border-0 border-gray-300"
+            class="{{ count($errors->title) ? 'border border-2 border-red-400' : 'focus:ring-indigo-500 focus:border-indigo-500' }} block w-full rounded sm:text-sm focus:border-0 border-gray-300"
             name="title" placeholder="Titulo" value="{{ $project->title }}" required>
     </div>
     @error('title')
@@ -15,7 +15,7 @@
     <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
     <div class="mt-1 flex rounded-md shadow-sm">
         <textarea
-            class="{{ $errors->title ? 'border border-2 border-red-400' : 'focus:ring-indigo-500 focus:border-indigo-500' }} flex-1 block w-full rounded sm:text-sm border-gray-300"
+            class="{{ count($errors->description)? 'border border-2 border-red-400': 'focus:ring-indigo-500 focus:border-indigo-500' }} flex-1 block w-full rounded sm:text-sm border-gray-300"
             name="description" placeholder="Algo sobre o projeto..." required>{{ $project->description }}
                 </textarea>
     </div>
