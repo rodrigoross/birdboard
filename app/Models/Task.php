@@ -20,6 +20,31 @@ class Task extends Model
     ];
 
     /**
+     * @override boot() method do model
+     *
+     * Adiciona observavel para quando uma nova task é criada e executada.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($task) {
+            Activity::create([
+                'project_id' => $task->project->id,
+                'description' => 'created_task'
+            ]);
+        });
+
+        static::updated(function ($task) {
+            if (!$task->completed) return;
+
+            Activity::create([
+                'project_id' => $task->project->id,
+                'description' => 'completed_task'
+            ]);
+        });
+    }
+    /**
      * Helper path function
      */
     public function path()
