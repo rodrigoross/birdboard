@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -39,7 +40,17 @@ class TriggerActivityTest extends TestCase
         $project->addTask('Some Task');
 
         $this->assertEquals(2, $project->activities->count());
-        $this->assertEquals('created_task', $project->activities->last()->description);
+
+        /**
+         * Utiliza tap para poder acessar a variavel diretamente ao inves de:
+         *  - $project->activities->last()->description
+         */
+        tap($project->activities->last(), function ($activity) {
+            $this->assertEquals('created_task', $activity->description);
+            // Testa polimorfismo para acessar task pela atividade criada
+            $this->assertInstanceOf(Task::class, $activity->subject);
+            $this->AssertEquals('Some Task', $activity->subject->body);
+        });
     }
 
     /** @test */
@@ -54,7 +65,12 @@ class TriggerActivityTest extends TestCase
             ]);
 
         $this->assertEquals(3, $project->activities->count());
-        $this->assertEquals('completed_task', $project->activities->last()->description);
+
+        tap($project->activities->last(), function ($activity) {
+            $this->assertEquals('completed_task', $activity->description);
+            // Testa polimorfismo para acessar task pela atividade criada
+            $this->assertInstanceOf(Task::class, $activity->subject);
+        });
     }
 
     /** @test */
@@ -79,7 +95,11 @@ class TriggerActivityTest extends TestCase
 
         $this->assertEquals(4, $project->activities->count());
 
-        $this->assertEquals('uncompleted_task', $project->activities->last()->description);
+        tap($project->activities->last(), function ($activity) {
+            $this->assertEquals('uncompleted_task', $activity->description);
+            // Testa polimorfismo para acessar task pela atividade criada
+            $this->assertInstanceOf(Task::class, $activity->subject);
+        });
     }
 
     /** @test */
