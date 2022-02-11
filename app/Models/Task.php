@@ -28,20 +28,6 @@ class Task extends Model
     ];
 
     /**
-     * @override boot() method do model
-     *
-     * Adiciona observavel para quando uma nova task é criada e executada.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($task) {
-            $task->project->recordActivity('created_task');
-        });
-    }
-
-    /**
      * Completa atividade
      *
      * @return void
@@ -62,7 +48,7 @@ class Task extends Model
     {
         $this->update(['completed' => false]);
 
-        // $this->project->recordActivity('completed_task');
+        $this->project->recordActivity('uncompleted_task');
     }
 
     /**
