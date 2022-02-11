@@ -80,6 +80,8 @@
                         </div>
                     </x-slot>
                 </x-card-item>
+
+                @include('projects.activities.card')
             </div>
         </div>
     </section>
