@@ -35,6 +35,20 @@ class Project extends Model
         return $this->tasks()->create(compact('body'));
     }
 
+    /**
+     * Registra atividade nova atividade do projeto
+     *
+     * @param string $type
+     * @return void
+     */
+    public function recordActivity($type)
+    {
+        Activity::create([
+            'description' => $type,
+            'project_id' => $this->id
+        ]);
+    }
+
 
     /**
      * Pega o usuario proprietário do projeto
