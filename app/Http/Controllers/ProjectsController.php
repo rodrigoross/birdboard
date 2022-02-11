@@ -84,11 +84,7 @@ class ProjectsController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        $project->update($request->only([
-            'title',
-            'description',
-            'notes'
-        ]));
+        $project->update($request->validated());
 
         return redirect($project->path());
     }
