@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('notes')->nullable();
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'owner_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
