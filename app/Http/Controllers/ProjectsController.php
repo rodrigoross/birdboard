@@ -17,9 +17,7 @@ class ProjectsController extends Controller
     {
         $projects = auth()->user()->projects;
 
-        return view('projects.index', [
-            'projects' => $projects
-        ]);
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -70,9 +68,7 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', [
-            'project' => $project
-        ]);
+        return view('projects.edit', compact('project'));
     }
 
     /**

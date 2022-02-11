@@ -54,6 +54,18 @@ class Task extends Model
     }
 
     /**
+     * Marca a atividade como não completa
+     *
+     * @return void
+     */
+    public function incomplete()
+    {
+        $this->update(['completed' => false]);
+
+        // $this->project->recordActivity('completed_task');
+    }
+
+    /**
      * Helper path function
      */
     public function path()
