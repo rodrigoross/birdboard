@@ -55,4 +55,14 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    /**
+     * Retorna atividades do projeto.
+     *
+     * @return User
+     */
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }
