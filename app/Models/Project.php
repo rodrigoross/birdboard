@@ -36,7 +36,7 @@ class Project extends Model
     }
 
     /**
-     * Registra atividade nova atividade do projeto
+     * Registra atividade nova atividades do projeto
      *
      * @param string $description
      * @return void
@@ -70,7 +70,7 @@ class Project extends Model
     /**
      * Retorna atividades do projeto.
      *
-     * @return User
+     * @return App\Models\Activity
      */
     public function activities()
     {

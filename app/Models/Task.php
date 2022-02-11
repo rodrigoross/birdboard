@@ -36,7 +36,7 @@ class Task extends Model
     {
         $this->update(['completed' => true]);
 
-        $this->project->recordActivity('completed_task');
+        $this->recordActivity('completed_task');
     }
 
     /**
@@ -48,8 +48,23 @@ class Task extends Model
     {
         $this->update(['completed' => false]);
 
-        $this->project->recordActivity('uncompleted_task');
+        $this->recordActivity('uncompleted_task');
     }
+
+    /**
+     * Registra nova atividade da tarefa
+     *
+     * @param string $description
+     * @return void
+     */
+    public function recordActivity($description)
+    {
+        $this->activities()->create([
+            'project_id' => $this->project_id,
+            'description' => $description
+        ]);
+    }
+
 
     /**
      * Helper path function
@@ -67,5 +82,15 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /**
+     * Retorna atividades da tarefa.
+     *
+     * @return App\Models\Activity
+     */
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'subject')->latest();
     }
 }
