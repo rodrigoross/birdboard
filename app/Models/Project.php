@@ -19,6 +19,8 @@ class Project extends Model
         'updated_at' => 'date:Y-m-d H:i:s',
     ];
 
+    protected static $recordableEvents = ['created', 'updated'];
+
     /**
      * Retorna a url base do projeto
      *

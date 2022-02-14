@@ -3,11 +3,11 @@
 namespace App\Traits;
 
 use App\Models\Activity;
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
 trait RecordsActivity
 {
-
     /**
      * Valor dos registros antes da alteração
      *
@@ -20,9 +20,41 @@ trait RecordsActivity
      */
     public static function bootRecordsActivity()
     {
-        static::updating(function ($model) {
-            $model->oldAttributes = $model->getOriginal();
-        });
+        // inicializa eventos para gravar nova atividade
+        foreach (self::recordableEvents() as $event) {
+            static::$event(function ($model) use ($event) {
+                $model->recordActivity($model->activityDescription($event));
+            });
+
+            if ($event === 'updated') {
+                static::updating(function ($model) {
+                    $model->oldAttributes = $model->getOriginal();
+                });
+            }
+        }
+    }
+
+    /**
+     * Define eventos utilizado para gravar atividades.
+     *
+     */
+    protected static function recordableEvents()
+    {
+        if (isset(static::$recordableEvents)) {
+            return static::$recordableEvents;
+        }
+        return ['created', 'updated', 'deleted'];
+    }
+
+    /**
+     * Retorna a descrição da atividade
+     *
+     * @param string $event
+     * @return string $description
+     */
+    protected function activityDescription($description)
+    {
+        return "{$description}_" . Str::lower(class_basename($this));
     }
 
     /**
