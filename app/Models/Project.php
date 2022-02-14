@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsActivity;
 
     protected $guarded = [];
 
@@ -18,8 +18,6 @@ class Project extends Model
         'created_at' => 'date:Y-m-d H:i:s',
         'updated_at' => 'date:Y-m-d H:i:s',
     ];
-
-    public $old = [];
 
     /**
      * Retorna a url base do projeto
@@ -39,35 +37,6 @@ class Project extends Model
     public function addTask($body)
     {
         return $this->tasks()->create(compact('body'));
-    }
-
-    /**
-     * Registra atividade nova atividades do projeto
-     *
-     * @param string $description
-     * @return void
-     */
-    public function recordActivity($description)
-    {
-        $this->activities()->create([
-            'description' => $description,
-            'changes' => $this->activityChanges($description)
-        ]);
-    }
-
-    /**
-     * Retorna alterações do projeto
-     *
-     * @return void
-     */
-    protected function activityChanges($description)
-    {
-        if ($description !== 'updated') return;
-
-        return [
-            'before' => Arr::except(array_diff($this->old, $this->getAttributes()), 'updated_at'),
-            'after' => Arr::except($this->getChanges(), 'updated_at')
-        ];
     }
 
     /**

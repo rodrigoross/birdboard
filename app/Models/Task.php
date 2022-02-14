@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsActivity;
 
     protected $guarded = [];
 
@@ -52,21 +53,6 @@ class Task extends Model
     }
 
     /**
-     * Registra nova atividade da tarefa
-     *
-     * @param string $description
-     * @return void
-     */
-    public function recordActivity($description)
-    {
-        $this->activities()->create([
-            'project_id' => $this->project_id,
-            'description' => $description
-        ]);
-    }
-
-
-    /**
      * Helper path function
      */
     public function path()
@@ -82,15 +68,5 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
-    }
-
-    /**
-     * Retorna atividades da tarefa.
-     *
-     * @return App\Models\Activity
-     */
-    public function activities()
-    {
-        return $this->morphMany(Activity::class, 'subject')->latest();
     }
 }
