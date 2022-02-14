@@ -70,6 +70,17 @@ class Project extends Model
     }
 
     /**
+     * Adiciona um novo usuário no projeto
+     *
+     * @param \App\Models\User $user
+     * @return User
+     */
+    public function invite(User $user)
+    {
+        return $this->members()->attach($user);
+    }
+
+    /**
      * Pega o usuario proprietário do projeto
      *
      * @return User
@@ -97,5 +108,15 @@ class Project extends Model
     public function activities()
     {
         return $this->hasMany(Activity::class)->latest();
+    }
+
+    /**
+     * Retorna membros do projeto.
+     *
+     * @retur Collection $users
+     */
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'project_members');
     }
 }
