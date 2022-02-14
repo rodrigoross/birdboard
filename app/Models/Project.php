@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Project extends Model
 {
@@ -12,8 +13,13 @@ class Project extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'owner_id' => 'integer'
+        'owner_id' => 'integer',
+        // Aplica cast na data e hora devido a nova serialização para Carbon dos timestamps
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
+
+    public $old = [];
 
     /**
      * Retorna a url base do projeto
@@ -43,9 +49,26 @@ class Project extends Model
      */
     public function recordActivity($description)
     {
-        $this->activities()->create(compact('description'));
+        $this->activities()->create([
+            'description' => $description,
+            'changes' => $this->activityChanges($description)
+        ]);
     }
 
+    /**
+     * Retorna alterações do projeto
+     *
+     * @return void
+     */
+    protected function activityChanges($description)
+    {
+        if ($description !== 'updated') return;
+
+        return [
+            'before' => Arr::except(array_diff($this->old, $this->getAttributes()), 'updated_at'),
+            'after' => Arr::except($this->getChanges(), 'updated_at')
+        ];
+    }
 
     /**
      * Pega o usuario proprietário do projeto

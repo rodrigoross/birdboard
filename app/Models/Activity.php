@@ -11,6 +11,10 @@ class Activity extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'changes' => 'array'
+    ];
+
     /**
      * Retorna quem disparou a atividade
      *
