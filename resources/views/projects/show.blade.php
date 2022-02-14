@@ -6,9 +6,22 @@
                 {{ $project->title }}
             </p>
 
-            <x-button class="shadow shadow-sm">
-                <a href="{{ route('projects.edit', $project->id) }}">{{ __('Editar projeto') }}</a>
-            </x-button>
+            <div class="flex flex-row items-center gap-1 md:gap-2">
+                <div class="flex -space-x-2">
+                    @foreach ($project->members as $member)
+                        <img class="rounded-full w-6 h-6 md:w-8 md:h-8 ring-2 ring-white"
+                            src="https://ui-avatars.com/api/name={{ $member->name }}?background=random"
+                            alt="Avatar do(a) {{ $member->name }}">
+                    @endforeach
+                    <img class="rounded-full w-6 h-6 md:w-8 md:h-8 ring-2 ring-white"
+                        src="https://ui-avatars.com/api/name={{ $project->owner->name }}?background=random"
+                        alt="Avatar do proprietário do projeto">
+                </div>
+
+                <x-button class="shadow shadow-sm ml-1 md:ml-4">
+                    <a href="{{ route('projects.edit', $project->id) }}">{{ __('Editar projeto') }}</a>
+                </x-button>
+            </div>
         </div>
     </x-slot>
 
