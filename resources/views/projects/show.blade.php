@@ -76,7 +76,7 @@
 
                     <x-slot name="description">
                         <div>
-                            {{ $project->description }}
+                            {{ Str::limit($project->description, 250) }}
                         </div>
                     </x-slot>
                 </x-card-item>
