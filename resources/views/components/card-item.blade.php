@@ -4,7 +4,11 @@
         {{ $title }}
     </h3>
 
-    <div class="text-gray-500">
+    <div class="text-gray-500 mb-2">
         {{ $description }}
     </div>
+
+    <footer>
+        {{ $footer }}
+    </footer>
 </x-card>
