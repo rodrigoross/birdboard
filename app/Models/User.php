@@ -73,6 +73,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function availableProjects()
+    {
+        return Project::where('owner_id', $this->id)
+            ->orWhereHas('members', function ($query) {
+                $query->where('user_id', $this->id);
+            })
+            ->get();
+    }
+
     /**
      * Um usuario tem varios projetos
      *
