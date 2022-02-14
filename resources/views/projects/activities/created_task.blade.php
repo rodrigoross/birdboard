@@ -1,1 +1,1 @@
-{{ __('Você criou "') . $activity->subject->body . '"' }}
+{{ __("{$activity->ownerName()} criou ") . '"' . $activity->subject->body . '"' }}

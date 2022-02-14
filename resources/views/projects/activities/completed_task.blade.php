@@ -1,1 +1,1 @@
-{{ __('Você completou "') . $activity->subject->body . '"' }}
+{{ __("{$activity->ownerName()} completou ") . '"' . $activity->subject->body . '"' }}

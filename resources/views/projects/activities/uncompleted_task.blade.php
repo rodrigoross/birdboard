@@ -1,1 +1,1 @@
-{{ __('Você descompletou "') . $activity->subject->body . '"' }}
+{{ __("{$activity->ownerName()} descompletou ") . '"' . $activity->subject->body . '"' }}

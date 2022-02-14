@@ -1,1 +1,1 @@
-{{ __('Você criou o projeto') }}
+{{ __("{$activity->ownerName()} criou o projeto") }}
