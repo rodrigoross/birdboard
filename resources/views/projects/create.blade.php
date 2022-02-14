@@ -7,7 +7,7 @@
         <form action="{{ route('projects.store') }}" method="POST" class="container mt-5">
             @include('projects.partials.form',[
             'project' => new App\Models\Project,
-            'buttonText' => __('Cria projeto')
+            'buttonText' => __('Criar projeto')
             ])
         </form>
     </div>

@@ -8,7 +8,9 @@
         {{ $description }}
     </div>
 
-    <footer>
-        {{ $footer }}
-    </footer>
+    @isset($footer)
+        <footer>
+            {{ $footer }}
+        </footer>
+    @endisset
 </x-card>

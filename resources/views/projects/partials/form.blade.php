@@ -16,8 +16,7 @@
     <div class="mt-1 flex rounded-md shadow-sm">
         <textarea
             class="{{ count($errors->description)? 'border border-2 border-red-400': 'focus:ring-indigo-500 focus:border-indigo-500' }} flex-1 block w-full rounded sm:text-sm border-gray-300"
-            name="description" placeholder="Algo sobre o projeto..." required>{{ $project->description }}
-                </textarea>
+            name="description" placeholder="Algo sobre o projeto..." required>{{ $project->description }}</textarea>
     </div>
     @error('description')
         <span class="text-red-400 text-sm">Descrição do projeto é necessária.</span>
