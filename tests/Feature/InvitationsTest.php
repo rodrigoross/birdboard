@@ -13,18 +13,44 @@ class InvitationsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_project_can_invite_a_user()
+    public function non_owners_may_not_invite_users()
     {
-        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
+
+        $this->signIn($user);
+
+        $this->post(Project::factory()->create()->path() . "/invite")
+            ->assertForbidden();
+    }
+
+    /** @test */
+    public function a_project_owner_can_invite_a_user()
+    {
         $project = Project::factory()->create();
 
         $userToInvite = User::factory()->create();
 
-        $this->actingAs($project->owner)->post($project->path() . "/invite", [
-            'email' => $userToInvite->email
-        ]);
+        $this->actingAs($project->owner)
+            ->post($project->path() . "/invite", [
+                'email' => $userToInvite->email
+            ])
+            ->assertRedirect($project->path());
 
         $this->assertTrue($project->members->contains($userToInvite));
+    }
+
+    /** @test */
+    public function the_invited_email_must_be_associated_with_valid_birdboard_account()
+    {
+        $project = Project::factory()->create();
+
+        $this->actingAs($project->owner)
+            ->post("{$project->path()}/invite", [
+                'email' => 'notauser@example.com'
+            ])
+            ->assertSessionHasErrors([
+                'email' => 'O usuário que está sendo convidado deve uma conta no Birdboard'
+            ]);
     }
 
     /** @test */
