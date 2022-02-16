@@ -21,13 +21,15 @@
                     {{ Str::limit($project->description, 250, '...') }}
                 </x-slot>
 
-                <x-slot name="footer">
-                    <form action="{{ route('projects.destroy', $project->id) }}" method="POST" class="text-right">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-sm" type="submit">{{ __('Excluir') }}</button>
-                    </form>
-                </x-slot>
+                @can('manage', $project)
+                    <x-slot name="footer">
+                        <form action="{{ route('projects.destroy', $project->id) }}" method="POST" class="text-right">
+                            @csrf
+                            @method('DELETE')
+                            <button class="text-sm" type="submit">{{ __('Excluir') }}</button>
+                        </form>
+                    </x-slot>
+                @endcan
             </x-card-item>
         @empty
             <div>{{ __('Você não tem nenhum projeto ainda!') }}</div>

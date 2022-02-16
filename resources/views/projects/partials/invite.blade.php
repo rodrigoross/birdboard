@@ -18,8 +18,4 @@
             <x-button class="text-sm" type="submit">{{ __('Convidar') }}</x-button>
         </form>
     </x-slot>
-
-    <x-slot name="footer">
-        {{--  --}}
-    </x-slot>
 </x-card-item>
