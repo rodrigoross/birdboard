@@ -14,7 +14,7 @@ class ProjectInvitationRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('update', $this->project);
+        return Gate::allows('manage', $this->project);
     }
 
     /**
@@ -37,7 +37,7 @@ class ProjectInvitationRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.exists' => 'O usuário que está sendo convidado deve uma conta no Birdboard'
+            'email.exists' => 'O usuário que está sendo convidado deve ter uma conta no Birdboard'
         ];
     }
 }

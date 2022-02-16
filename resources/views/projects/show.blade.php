@@ -88,7 +88,7 @@
                     </x-slot>
 
                     <x-slot name="description">
-                        {{ Str::limit($project->description, 250) }}
+                        {{ Str::limit($project->description, 150) }}
                     </x-slot>
 
                     <x-slot name="footer">
@@ -102,6 +102,10 @@
                 </x-card-item>
 
                 @include('projects.activities.card')
+
+                @can('manage', $project)
+                    @include('projects.partials.invite')
+                @endcan
             </div>
         </div>
     </section>
