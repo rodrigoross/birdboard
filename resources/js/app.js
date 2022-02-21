@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('./switchTheme');
 
 import Alpine from 'alpinejs';
 

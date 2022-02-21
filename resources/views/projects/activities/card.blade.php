@@ -5,7 +5,7 @@
                 <li class="{{ $loop->last ? '' : 'mb-1' }}">
                     @include("projects.activities.{$activity->description}")
                     <span
-                        class="text-right text-gray-300">{{ $activity->created_at->diffForHumans(null, true) }}</span>
+                        class="text-right text-gray-300 dark:text-gray-600">{{ $activity->created_at->diffForHumans(null, true) }}</span>
                 </li>
             @endforeach
         </ul>

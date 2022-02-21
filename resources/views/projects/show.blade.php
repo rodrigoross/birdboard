@@ -9,11 +9,11 @@
             <div class="flex flex-row items-center gap-1 md:gap-2">
                 <div class="flex -space-x-2">
                     @foreach ($project->members as $member)
-                        <img class="rounded-full w-6 h-6 md:w-8 md:h-8 ring-2 ring-white"
+                        <img class="rounded-full w-6 h-6 md:w-8 md:h-8 ring-2 ring-white dark:ring-sky-800"
                             src="https://ui-avatars.com/api/name={{ $member->name }}?background=random"
                             alt="Avatar do(a) {{ $member->name }}">
                     @endforeach
-                    <img class="rounded-full w-6 h-6 md:w-8 md:h-8 ring-2 ring-white"
+                    <img class="rounded-full w-6 h-6 md:w-8 md:h-8 ring-2 ring-white dark:ring-sky-500"
                         src="https://ui-avatars.com/api/name={{ $project->owner->name }}?background=random"
                         alt="Avatar do proprietário do projeto">
                 </div>
@@ -40,10 +40,11 @@
                                 <div class="flex justify-between items-center w-full">
 
                                     <input type="text" name="body" id="{{ "task-{$task->id}" }}"
-                                        class="w-full p-0 border-transparent focus:border-transparent focus:ring-0 {{ $task->completed ? 'text-gray-500' : '' }}"
+                                        class="w-full p-0 border-transparent focus:border-transparent focus:ring-0 dark:bg-gray-800 {{ $task->completed ? 'text-gray-500' : '' }}"
                                         value="{{ $task->body }}">
 
                                     <input type="checkbox" name="completed" id="{{ "completed-{$task->id}" }}"
+                                        class="dark:bg-dark-gray-800 checked:dark:border-sky-700"
                                         onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
                                 </div>
                             </form>
@@ -53,7 +54,7 @@
                         <form action="{{ route('tasks.store', $project->id) }}" method="POST" class="p-0">
                             @csrf
                             <input type="text" name="body" id="task"
-                                class="w-full p-0 border-transparent focus:border-transparent focus:ring-0"
+                                class="w-full p-0 border-transparent focus:border-transparent focus:ring-0 dark:bg-gray-800 "
                                 placeholder="{{ __('Adicionar uma nova tarefa...') }}">
                         </form>
                     </x-card>
@@ -67,7 +68,7 @@
                         @csrf
                         @method('PATCH')
                         <div>
-                            <textarea class="border-none rounded-lg shadow shadow-sm p-5 w-full"
+                            <textarea class="border-none rounded-lg shadow shadow-sm p-5 w-full dark:bg-gray-800"
                                 style="min-height: 200px;" name="notes" id="notes"
                                 placeholder="Alguma coisa para tomar nota?">{{ $project->notes }}</textarea>
 
@@ -97,7 +98,8 @@
                                 class="text-right">
                                 @csrf
                                 @method('DELETE')
-                                <button class="text-sm" type="submit">{{ __('Excluir') }}</button>
+                                <button class="text-sm hover:text-sky-800 dark:hover:text-sky-500"
+                                    type="submit">{{ __('Excluir') }}</button>
                             </form>
                         </x-slot>
                     @endcan

@@ -16,14 +16,28 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Checa tema salvo -->
+    <script>
+        // It's best to inline this in `head` to avoid FOUC (flash of unstyled content) when changing pages or themes
+        if (
+            localStorage.getItem('color-theme') === 'dark' ||
+            (!('color-theme' in localStorage) &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
-        <header class="bg-white shadow">
+        <header class="bg-white shadow dark:bg-gray-900 dark:border-t-sky-500 dark:shadow-gray-800">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
