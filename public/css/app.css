@@ -1206,6 +1206,10 @@ select {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
 }
+.line-through {
+  -webkit-text-decoration-line: line-through;
+          text-decoration-line: line-through;
+}
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

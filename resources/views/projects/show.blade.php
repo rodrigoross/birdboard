@@ -40,7 +40,7 @@
                                 <div class="flex justify-between items-center w-full">
 
                                     <input type="text" name="body" id="{{ "task-{$task->id}" }}"
-                                        class="w-full p-0 border-transparent focus:border-transparent focus:ring-0 dark:bg-gray-800 {{ $task->completed ? 'text-gray-500' : '' }}"
+                                        class="w-full p-0 border-transparent focus:border-transparent focus:ring-0 dark:bg-gray-800 {{ $task->completed ? 'text-gray-500 dark:text-gray-400 line-through' : '' }}"
                                         value="{{ $task->body }}">
 
                                     <input type="checkbox" name="completed" id="{{ "completed-{$task->id}" }}"
