@@ -8,10 +8,12 @@ require('./bootstrap');
 require('./switchTheme');
 
 import Alpine from 'alpinejs';
+import VModal from 'vue-js-modal'
 
 window.Vue = require('vue').default;
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.use(VModal);
 
 window.Alpine = Alpine;
 
