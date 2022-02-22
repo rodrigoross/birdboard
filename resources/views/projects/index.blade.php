@@ -35,4 +35,6 @@
             <div>{{ __('Você não tem nenhum projeto ainda!') }}</div>
         @endforelse
     </div>
+
+    <example-component></example-component>
 </x-app-layout>

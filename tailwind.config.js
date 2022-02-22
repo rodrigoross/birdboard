@@ -18,4 +18,11 @@ module.exports = {
     darkMode: 'class',
 
     plugins: [require('@tailwindcss/forms')],
+
+    purge: [
+        './storage/framework/views/*.php',
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
+    ],
 };
