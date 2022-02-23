@@ -39,10 +39,12 @@ class ProjectsController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $project = auth()->user()->projects()->create(
-            $request->only([
-                'title', 'description', 'notes'
-            ])
+            $request->validated()
         );
+
+        if ($request->wantsJson()) {
+            return ['message' => $project->path()];
+        }
 
         return redirect($project->path());
     }
