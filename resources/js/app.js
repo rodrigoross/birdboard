@@ -12,7 +12,8 @@ import VModal from 'vue-js-modal'
 
 window.Vue = require('vue').default;
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('new-project-modal', require('./components/NewProjectModal.vue').default);
+
 Vue.use(VModal);
 
 window.Alpine = Alpine;

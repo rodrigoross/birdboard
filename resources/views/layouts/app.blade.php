@@ -33,7 +33,7 @@
 </head>
 
 <body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900" id="app">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
@@ -44,7 +44,7 @@
         </header>
 
         <!-- Page Content -->
-        <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" id="app">
+        <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             {{ $slot }}
         </main>
     </div>
