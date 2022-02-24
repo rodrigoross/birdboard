@@ -1,7 +1,9 @@
 <template>
     <modal :name="name" class="rounded-lg" height="auto">
         <form @submit.prevent="submit" class="p-10">
-            <h1 class="text-2xl mb-8 text-center">Vamos Fazer Algo Novo</h1>
+            <h1 class="text-2xl mb-8 text-center dark:text-white">
+                Vamos Fazer Algo Novo
+            </h1>
 
             <div class="flex gap-4">
                 <div class="flex-1">
@@ -22,7 +24,7 @@
                                 border
                             "
                             :class="
-                                errors.title
+                                form.errors.title
                                     ? 'border-red-500'
                                     : ' border-gray-300'
                             "
@@ -31,9 +33,9 @@
                             v-model="form.title"
                         />
                         <span
-                            v-if="errors.title"
+                            v-if="form.errors.title"
                             class="text-xs italic text-red-500"
-                            v-text="errors.title[0]"
+                            v-text="form.errors.title[0]"
                         ></span>
                     </div>
 
@@ -52,7 +54,7 @@
                                 border
                             "
                             :class="
-                                errors.title
+                                form.errors.description
                                     ? 'border-red-500'
                                     : ' border-gray-300'
                             "
@@ -62,9 +64,9 @@
                             v-model="form.description"
                         ></textarea>
                         <span
-                            v-if="errors.description"
+                            v-if="form.errors.description"
                             class="text-xs italic text-red-500"
-                            v-text="errors.description[0]"
+                            v-text="form.errors.description[0]"
                         ></span>
                     </div>
                 </div>
@@ -87,9 +89,9 @@
                                 mb-2
                             "
                             placeholder="Adicionar uma tarefa"
-                            v-for="task in form.tasks"
+                            v-for="(task, index) in form.tasks"
                             v-model="task.body"
-                            :key="task.id"
+                            :key="index"
                         />
                     </div>
 
@@ -138,6 +140,8 @@
 </template>
 
 <script>
+import BirboardForm from "../BirdboardForm";
+
 export default {
     props: {
         name: {
@@ -148,44 +152,32 @@ export default {
 
     data() {
         return {
-            form: {
+            form: new BirboardForm({
                 title: "",
                 description: "",
-                tasks: [{ body: "", id: 0 }],
-            },
+                tasks: [{ body: "" }],
+            }),
             errors: {},
         };
     },
 
     methods: {
         addTask() {
-            let id = this.form.tasks.length;
-            this.form.tasks.push({ body: "", id: id++ });
+            // let id = this.form.tasks.length;
+            this.form.tasks.push({ body: "" });
         },
 
         closeModal() {
             this.errors = {};
-            this.form = {
-                title: "",
-                description: "",
-                tasks: [{ body: "", id: 0 }],
-            };
+            this.form.reset();
 
             this.$modal.hide(this.name);
         },
 
-        submit() {
-            this.errors = {};
-
-            axios
-                .post("/projects", this.form)
-                .then((response) => {
-                    alert(response.data.message);
-                    location.replace(response.data.message);
-                })
-                .catch((error) => {
-                    this.errors = error.response.data.errors;
-                });
+        async submit() {
+            this.form.submit("/projects").then((response) => {
+                location = response.data.message;
+            });
         },
     },
 };
