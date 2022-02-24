@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Arr;
 
 class ProjectsController extends Controller
 {
@@ -42,10 +43,11 @@ class ProjectsController extends Controller
             $request->validated()
         );
 
-        if ($request->has('tasks')) {
-            foreach (request('tasks') as $task) {
-                $project->addTask($task['body']);
-            }
+        if ($tasks = request('tasks')) {
+            // Trata quando recebe task com corpo vazio Pode ser migrado pro front
+            $project->addTasks(Arr::where($tasks, function ($task) {
+                return $task['body'] !== null;
+            }));
         }
 
         if ($request->wantsJson()) {

@@ -64,11 +64,24 @@ class Project extends Model
     /**
      * Adiciona uma nova task no projeto
      *
-     * @return void
+     * @param string $body
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function addTask($body)
     {
         return $this->tasks()->create(compact('body'));
+    }
+
+    /**
+     * Adiciona várias task ao projeto
+     *
+     * @param array $tasks
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function addTasks($tasks)
+    {
+        // dd($tasks);
+        return $this->tasks()->createMany($tasks);
     }
 
     /**
