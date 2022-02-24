@@ -8,7 +8,9 @@
             <div class="flex gap-4">
                 <div class="flex-1">
                     <div class="mb-4">
-                        <label for="title" class="block text-sm text-gray-700"
+                        <label
+                            for="title"
+                            class="block text-sm text-gray-700 dark:text-white"
                             >Titulo</label
                         >
                         <input
@@ -21,6 +23,7 @@
                                 text-sm
                                 sm:text-xs
                                 focus:border-0
+                                dark:bg-gray-800 dark:text-white
                                 border
                             "
                             :class="
@@ -40,7 +43,10 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="description" class="text-sm text-gray-700">
+                        <label
+                            for="description"
+                            class="text-sm text-gray-700 dark:text-white"
+                        >
                             Descrição
                         </label>
                         <textarea
@@ -52,6 +58,7 @@
                                 sm:text-xs
                                 focus:border-0
                                 border
+                                dark:bg-gray-800 dark:text-white
                             "
                             :class="
                                 form.errors.description
@@ -72,7 +79,8 @@
                 </div>
                 <div class="flex-1">
                     <div class="mb-4">
-                        <label class="block text-sm text-gray-700"
+                        <label
+                            class="block text-sm text-gray-700 dark:text-white"
                             >Precisa de algumas tarefas</label
                         >
                         <input
@@ -86,6 +94,7 @@
                                 sm:text-xs
                                 focus:border-0
                                 border border-gray-300
+                                dark:bg-gray-800 dark:text-gray-500
                                 mb-2
                             "
                             placeholder="Adicionar uma tarefa"

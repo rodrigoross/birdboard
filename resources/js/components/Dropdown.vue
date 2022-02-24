@@ -1,6 +1,11 @@
 <template>
     <div class="dropdown relative">
-        <div @click.prevent="isOpen = !isOpen">
+        <div
+            class="dropdown-toggle"
+            aria-haspopup="true"
+            :aria-expanded="isOpen"
+            @click.prevent="isOpen = !isOpen"
+        >
             <slot name="trigger"></slot>
         </div>
 
@@ -32,6 +37,26 @@ export default {
         return {
             isOpen: false,
         };
+    },
+
+    watch: {
+        isOpen(isOpen) {
+            if (isOpen) {
+                document.addEventListener("click", this.closedIfClickedOutside);
+            }
+        },
+    },
+
+    methods: {
+        closedIfClickedOutside(event) {
+            if (!event.target.closest(".dropdown")) {
+                document.removeEventListener(
+                    "click",
+                    this.closedIfClickedOutside
+                );
+                this.isOpen = false;
+            }
+        },
     },
 };
 </script>

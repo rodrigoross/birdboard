@@ -5505,6 +5505,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     align: {
@@ -5520,6 +5525,21 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isOpen: false
     };
+  },
+  watch: {
+    isOpen: function isOpen(_isOpen) {
+      if (_isOpen) {
+        document.addEventListener("click", this.closedIfClickedOutside);
+      }
+    }
+  },
+  methods: {
+    closedIfClickedOutside: function closedIfClickedOutside(event) {
+      if (!event.target.closest(".dropdown")) {
+        document.removeEventListener("click", this.closedIfClickedOutside);
+        this.isOpen = false;
+      }
+    }
   }
 });
 
@@ -5545,6 +5565,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7204,6 +7233,8 @@ var render = function () {
     _c(
       "div",
       {
+        staticClass: "dropdown-toggle",
+        attrs: { "aria-haspopup": "true", "aria-expanded": _vm.isOpen },
         on: {
           click: function ($event) {
             $event.preventDefault()
@@ -7286,7 +7317,7 @@ var render = function () {
                 _c(
                   "label",
                   {
-                    staticClass: "block text-sm text-gray-700",
+                    staticClass: "block text-sm text-gray-700 dark:text-white",
                     attrs: { for: "title" },
                   },
                   [_vm._v("Titulo")]
@@ -7302,7 +7333,7 @@ var render = function () {
                     },
                   ],
                   staticClass:
-                    "\n                            p-2\n                            block\n                            w-full\n                            rounded\n                            text-sm\n                            sm:text-xs\n                            focus:border-0\n                            border\n                        ",
+                    "\n                            p-2\n                            block\n                            w-full\n                            rounded\n                            text-sm\n                            sm:text-xs\n                            focus:border-0\n                            dark:bg-gray-800 dark:text-white\n                            border\n                        ",
                   class: _vm.form.errors.title
                     ? "border-red-500"
                     : " border-gray-300",
@@ -7332,7 +7363,7 @@ var render = function () {
                 _c(
                   "label",
                   {
-                    staticClass: "text-sm text-gray-700",
+                    staticClass: "text-sm text-gray-700 dark:text-white",
                     attrs: { for: "description" },
                   },
                   [
@@ -7352,7 +7383,7 @@ var render = function () {
                     },
                   ],
                   staticClass:
-                    "\n                            p-2\n                            w-full\n                            rounded\n                            text-sm\n                            sm:text-xs\n                            focus:border-0\n                            border\n                        ",
+                    "\n                            p-2\n                            w-full\n                            rounded\n                            text-sm\n                            sm:text-xs\n                            focus:border-0\n                            border\n                            dark:bg-gray-800 dark:text-white\n                        ",
                   class: _vm.form.errors.description
                     ? "border-red-500"
                     : " border-gray-300",
@@ -7388,9 +7419,14 @@ var render = function () {
                 "div",
                 { staticClass: "mb-4" },
                 [
-                  _c("label", { staticClass: "block text-sm text-gray-700" }, [
-                    _vm._v("Precisa de algumas tarefas"),
-                  ]),
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "block text-sm text-gray-700 dark:text-white",
+                    },
+                    [_vm._v("Precisa de algumas tarefas")]
+                  ),
                   _vm._v(" "),
                   _vm._l(_vm.form.tasks, function (task, index) {
                     return _c("input", {
@@ -7404,7 +7440,7 @@ var render = function () {
                       ],
                       key: index,
                       staticClass:
-                        "\n                            p-2\n                            block\n                            w-full\n                            rounded\n                            text-sm\n                            sm:text-xs\n                            focus:border-0\n                            border border-gray-300\n                            mb-2\n                        ",
+                        "\n                            p-2\n                            block\n                            w-full\n                            rounded\n                            text-sm\n                            sm:text-xs\n                            focus:border-0\n                            border border-gray-300\n                            dark:bg-gray-800 dark:text-gray-500\n                            mb-2\n                        ",
                       attrs: {
                         type: "text",
                         placeholder: "Adicionar uma tarefa",
