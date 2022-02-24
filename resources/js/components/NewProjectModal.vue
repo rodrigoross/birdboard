@@ -87,14 +87,15 @@
                                 mb-2
                             "
                             placeholder="Adicionar uma tarefa"
-                            v-for="(index, task) in form.tasks"
-                            v-model="task.model"
-                            :key="index"
+                            v-for="task in form.tasks"
+                            v-model="task.body"
+                            :key="task.id"
                         />
                     </div>
 
                     <button
                         class="inline-flex items-center text-xs"
+                        type="button"
                         @click="addTask"
                     >
                         <svg
@@ -126,7 +127,7 @@
                 <button
                     class="button-outlined"
                     type="button"
-                    @click="$modal.hide('new-project')"
+                    @click="closeModal"
                 >
                     Cancelar
                 </button>
@@ -150,7 +151,7 @@ export default {
             form: {
                 title: "",
                 description: "",
-                tasks: [{ value: "" }],
+                tasks: [{ body: "", id: 0 }],
             },
             errors: {},
         };
@@ -158,7 +159,19 @@ export default {
 
     methods: {
         addTask() {
-            this.form.tasks.push({ value: "" });
+            let id = this.form.tasks.length;
+            this.form.tasks.push({ body: "", id: id++ });
+        },
+
+        closeModal() {
+            this.errors = {};
+            this.form = {
+                title: "",
+                description: "",
+                tasks: [{ body: "", id: 0 }],
+            };
+
+            this.$modal.hide(this.name);
         },
 
         submit() {
@@ -167,7 +180,8 @@ export default {
             axios
                 .post("/projects", this.form)
                 .then((response) => {
-                    location = response.data.message;
+                    alert(response.data.message);
+                    location.replace(response.data.message);
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
