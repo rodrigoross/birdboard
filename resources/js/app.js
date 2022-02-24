@@ -5,7 +5,6 @@
  */
 
 require('./bootstrap');
-require('./switchTheme');
 
 import Alpine from 'alpinejs';
 import VModal from 'vue-js-modal'
@@ -13,6 +12,7 @@ import VModal from 'vue-js-modal'
 window.Vue = require('vue').default;
 
 Vue.component('new-project-modal', require('./components/NewProjectModal.vue').default);
+Vue.component('switch-theme', require('./components/SwitchTheme.vue').default);
 
 Vue.use(VModal);
 
