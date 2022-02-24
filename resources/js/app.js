@@ -13,6 +13,7 @@ window.Vue = require('vue').default;
 
 Vue.component('new-project-modal', require('./components/NewProjectModal.vue').default);
 Vue.component('switch-theme', require('./components/SwitchTheme.vue').default);
+Vue.component('dropdown', require('./components/Dropdown.vue').default);
 
 Vue.use(VModal);
 
